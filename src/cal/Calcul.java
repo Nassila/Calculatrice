@@ -22,10 +22,16 @@ public class Calcul extends JFrame implements ActionListener,FocusListener,Mouse
 	
 	//constructeur de la classe Calcul
 	public  Calcul() {
+		//titre de la fenetre
 		setTitle("Calculatrice");
+		//taille de la fenetre
 		setSize(315, 240);
+		//centrer l'affichage de la fenetre à l'ecran
 		setLocationRelativeTo(this);
+		//empecher de redimensionner la fenetre
 	    setResizable(false);
+	    //arreter l'execution lors de la fermeture de la fenetre 
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	//modification de l'icone de la fenetre
 		Toolkit kit=Toolkit.getDefaultToolkit();
