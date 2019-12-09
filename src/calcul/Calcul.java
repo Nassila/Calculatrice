@@ -13,6 +13,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -27,7 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 @SuppressWarnings("serial")
-public class Calcul extends JFrame implements ActionListener, FocusListener, MouseListener {
+public class Calcul extends JFrame implements ActionListener, FocusListener, MouseListener, KeyListener {
 	private JPanel pc, pn, p;
 	private JTextField t;
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bs, ba, be, bm, bd, bv, bc, br, bcos, bsin, bp, bpi;
@@ -139,6 +140,7 @@ public class Calcul extends JFrame implements ActionListener, FocusListener, Mou
 		be = new JButton("=");
 		pc.add(be);
 		be.addActionListener(this);
+		be.addKeyListener(this);
 
 		bd = new JButton("/");
 		pc.add(bd);
@@ -156,6 +158,7 @@ public class Calcul extends JFrame implements ActionListener, FocusListener, Mou
 		t = new JTextField(14);
 		pn.add(t);
 		t.addMouseListener(this);
+		t.setEditable(false);
 		// mettre les caracteres en gras
 		t.setFont(new Font("Cambria", Font.BOLD, 15));
 		t.setHorizontalAlignment(JTextField.RIGHT);
@@ -197,6 +200,7 @@ public class Calcul extends JFrame implements ActionListener, FocusListener, Mou
 	// definir les action des boutons
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == b1) {
 			t.setText(t.getText() + 1);
 		}
@@ -365,12 +369,56 @@ public class Calcul extends JFrame implements ActionListener, FocusListener, Mou
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			String ch = t.getText();
+
+			for (int i = 0; i < ch.length(); i++) {
+				if (ch.charAt(i) == '+') {
+					double n1 = Double.parseDouble(ch.substring(0, ch.indexOf('+')));
+					double n2 = Double.parseDouble(ch.substring(ch.indexOf('+') + 1));
+					t.setText("" + (n1 + n2));
+				}
+
+				else if (ch.charAt(i) == '-') {
+
+					double n3 = Double.parseDouble(ch.substring(0, ch.indexOf('-')));
+					double n4 = Double.parseDouble(ch.substring(ch.indexOf('-') + 1));
+					t.setText("" + (n3 - n4));
+				} else if (ch.charAt(i) == '*') {
+					double n5 = Double.parseDouble(ch.substring(0, ch.indexOf('*')));
+					double n6 = Double.parseDouble(ch.substring(ch.indexOf('*') + 1));
+					t.setText("" + (n5 * n6));
+				} else if (ch.charAt(i) == '/') {
+					double n7 = Double.parseDouble(ch.substring(0, ch.indexOf('/')));
+					double n8 = Double.parseDouble(ch.substring(ch.indexOf('/') + 1));
+					t.setText("" + (n7 / n8));
+				}
+
+			}
+		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 }
